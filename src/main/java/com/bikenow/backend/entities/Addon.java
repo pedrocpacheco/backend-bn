@@ -1,7 +1,5 @@
 package com.bikenow.backend.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -40,10 +38,7 @@ public class Addon {
   @Column(columnDefinition = "TEXT")
   private String img;
 
-  @ManyToOne
-  @JoinColumn(name = "bicicleta_id")
-  @JsonIgnore
-  private Bicicleta bicicleta;
+  private Long bicicletaId;
 
   @Override
   public int hashCode() {

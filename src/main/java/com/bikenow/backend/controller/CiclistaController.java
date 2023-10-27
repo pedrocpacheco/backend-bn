@@ -28,12 +28,17 @@ public class CiclistaController {
     return repository.findAll();
   }
 
-  @GetMapping("/{cpf}")
+  @GetMapping("/cpf/{cpf}")
   public Ciclista findByCpf(@PathVariable String cpf){
     return repository.findByCpf(cpf);
   }
 
-  @GetMapping("/{nome}")
+  @GetMapping("/id/{id}")
+  public Ciclista findById(@PathVariable Long id){
+    return repository.findById(id).get();
+  }
+
+  @GetMapping("/nome/{nome}")
   public Ciclista findByNome(@PathVariable String nome){
     return repository.findByNome(nome);
   }

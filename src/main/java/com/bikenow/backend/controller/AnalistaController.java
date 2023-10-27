@@ -25,6 +25,10 @@ public class AnalistaController {
     return repository.findByRm(rm);
   }
   
+  @GetMapping("/{id}")
+  public Analista findById(@PathVariable Long id){
+    return repository.findById(id).get();
+  }
 
   @PostMapping()
   public Analista saveCiclista(@RequestBody Analista analista){

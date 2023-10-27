@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -41,15 +42,14 @@ public class Bicicleta {
   private String descricao;
   private Double price;
   
+  @Column(columnDefinition = "TEXT")
   private List<String> images;
 
-  @ManyToOne
-  @JoinColumn(name = "ciclista_id")
-  @JsonIgnore
-  private Ciclista ciclista;
+  private Boolean avaliado;
 
-  @OneToMany(mappedBy = "bicicleta", cascade = CascadeType.ALL) 
-  private List<Addon> addons;
+  private Boolean aceito;
+
+  private Long ciclistaId;
 
   @Override
   public int hashCode() {
