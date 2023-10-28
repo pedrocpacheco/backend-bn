@@ -20,7 +20,7 @@ public class AnalistaController {
   @Autowired
   private AnalistaRepository repository;
 
-  @GetMapping("/{rm}")
+  @GetMapping("/rm/{rm}")
   public Analista findByRm(@PathVariable String rm){
     return repository.findByRm(rm);
   }
