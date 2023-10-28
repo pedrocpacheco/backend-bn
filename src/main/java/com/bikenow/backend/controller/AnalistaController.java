@@ -1,5 +1,7 @@
 package com.bikenow.backend.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +25,11 @@ public class AnalistaController {
   @GetMapping("/rm/{rm}")
   public Analista findByRm(@PathVariable String rm){
     return repository.findByRm(rm);
+  }
+
+  @GetMapping()
+  public List<Analista> findAll(){
+    return repository.findAll();
   }
   
   @GetMapping("/{id}")
