@@ -50,6 +50,13 @@ public class BicicletaController {
     return repository.save(bicicletaUpdated);
   }
 
+  @PutMapping("/avaliado/{id}")
+  public Bicicleta avaliadoBicicleta(@PathVariable Long id, @RequestBody Bicicleta bicicleta){
+    var bicicletaUpdated = repository.findById(id).get();
+    bicicletaUpdated.setAvaliado(bicicleta.getAvaliado());
+    return repository.save(bicicletaUpdated);
+  }
+
   @PutMapping("/{id}")
   public Bicicleta updateBicicleta(@PathVariable Long id, @RequestBody Bicicleta bicicleta) {
       var bicicletaUpdated = repository.findById(id).get();
