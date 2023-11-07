@@ -3,6 +3,7 @@ package com.bikenow.backend.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,13 +25,15 @@ public class AddonController {
 
 
   @GetMapping()
-  public List<Addon> findAll(){
-    return repository.findAll();
+  public ResponseEntity<List<Addon>> findAll(){
+    List<Addon> addons =  repository.findAll();
+    return ResponseEntity.ok(addons);
   }
 
   @GetMapping("/bicicleta/{bicicletaId}")
-  public List<Addon> findByBicicletaId(@PathVariable Long bicicletaId){
-    return repository.findByBicicletaId(bicicletaId);
+  public ResponseEntity<List<Addon>> findByBicicletaId(@PathVariable Long bicicletaId){
+    List<Addon> addons = repository.findByBicicletaId(bicicletaId);
+    return ResponseEntity.ok(addons);
   }
 
   @GetMapping("/{id}")

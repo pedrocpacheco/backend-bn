@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,7 +38,9 @@ public class Addon {
   @Column(columnDefinition = "TEXT")
   private String img;
 
-  private Long bicicletaId;
+  @ManyToOne
+  @JoinColumn(name = "bicicleta_id", nullable = false)
+  private Bicicleta bicicleta;
 
   @Override
   public int hashCode() {

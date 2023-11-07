@@ -1,10 +1,15 @@
 package com.bikenow.backend.entities;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,6 +36,10 @@ public class Ciclista {
   @Column(columnDefinition = "TEXT")
   private String img;
 
+  @OneToMany(mappedBy = "ciclista")
+  @JsonIgnore
+  private List<Bicicleta> bicicletas;
+
   @Override
   public int hashCode() {
     final int prime = 31;
@@ -54,7 +63,5 @@ public class Ciclista {
       return false;
     return true;
   }
-
-  
 
 }
