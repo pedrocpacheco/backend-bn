@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bikenow.backend.entities.Analista;
-import com.bikenow.backend.repositories.AnalistaRepository;
+import com.bikenow.backend.service.AnalistaService;
 
 @RestController
 @RequestMapping("/analistas")
@@ -20,28 +20,26 @@ import com.bikenow.backend.repositories.AnalistaRepository;
 public class AnalistaController {
   
   @Autowired
-  private AnalistaRepository repository;
-
-  @GetMapping("/rm/{rm}")
-  public Analista findByRm(@PathVariable String rm){
-    return repository.findByRm(rm);
-  }
+  private AnalistaService service;
 
   @GetMapping()
   public List<Analista> findAll(){
-    return repository.findAll();
+    return service.findAll();
+  }
+
+  @GetMapping("/rm/{rm}")
+  public Analista findByRm(@PathVariable String rm){
+    return service.findByRm(rm);
   }
   
   @GetMapping("/{id}")
   public Analista findById(@PathVariable Long id){
-    return repository.findById(id).get();
+    return service.findById(id);
   }
 
   @PostMapping()
   public Analista saveCiclista(@RequestBody Analista analista){
-    return repository.save(analista);
+    return service.save(analista);
   }
-
-
 }
 

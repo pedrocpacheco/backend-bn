@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bikenow.backend.entities.Ciclista;
-import com.bikenow.backend.repositories.CiclistaRepository;
+import com.bikenow.backend.service.CiclistaService;
 
 @RestController
 @RequestMapping("/ciclistas")
@@ -21,36 +21,36 @@ import com.bikenow.backend.repositories.CiclistaRepository;
 public class CiclistaController {
   
   @Autowired
-  private CiclistaRepository repository;
+  private CiclistaService service;
 
   @GetMapping
   public List<Ciclista> findAll(){
-    return repository.findAll();
+    return service.findAll();
   }
 
   @GetMapping("/cpf/{cpf}")
   public Ciclista findByCpf(@PathVariable String cpf){
-    return repository.findByCpf(cpf);
+    return service.findByCpf(cpf);
   }
 
   @GetMapping("/id/{id}")
   public Ciclista findById(@PathVariable Long id){
-    return repository.findById(id).get();
+    return service.findById(id);
   }
 
   @GetMapping("/nome/{nome}")
   public Ciclista findByNome(@PathVariable String nome){
-    return repository.findByNome(nome);
+    return service.findByNome(nome);
   }
 
   @PostMapping()
   public Ciclista saveCiclista(@RequestBody Ciclista ciclista){
-    return repository.save(ciclista);
+    return service.save(ciclista);
   }
 
   @PutMapping("/{id}")
     public Ciclista updateCiclista(@PathVariable Long id, @RequestBody Ciclista ciclista){
-      return repository.save(ciclista);
+      return service.update(id, ciclista);
     }
 
 }
