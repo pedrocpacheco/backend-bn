@@ -24,6 +24,7 @@ public class Analista {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+  
   private String nome;
   private String rm;
   private String senha;

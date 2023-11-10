@@ -3,10 +3,12 @@ package com.bikenow.backend.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.bikenow.backend.entities.Addon;
 import com.bikenow.backend.repositories.AddonRepository;
 
+@Service
 public class AddonService {
   
   @Autowired
@@ -17,11 +19,7 @@ public class AddonService {
   }
 
   public Addon findById(Long id){
-    if(repository.findById(id).get() == null){
-      throw new IllegalArgumentException("Addon with id: " + id + " does not exist");
-    }
-
-    return repository.findById(id).get();
+    return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Addon with id: " + id + " does not exist"));
   }
 
   public List<Addon> findByBicicletaId(Long id){
@@ -35,10 +33,6 @@ public class AddonService {
   public Addon save(Addon addon){
     if(addon == null){
       throw new RuntimeException("Addon parameter is null!");
-    }
-
-    if(repository.findById(addon.getId()).get() != null){
-      throw new IllegalArgumentException("Addon with id: " + addon.getId() + " already exists");
     }
 
     if(repository.findByBicicletaId(addon.getBicicleta().getId()) != null){

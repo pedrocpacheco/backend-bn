@@ -3,6 +3,7 @@ package com.bikenow.backend.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,13 +37,15 @@ public class AddonController {
   }
 
   @GetMapping("/{id}")
-  public Addon findById(@PathVariable Long id){
-    return service.findById(id);
+  public ResponseEntity<Addon> findById(@PathVariable Long id){
+    Addon addon = service.findById(id);
+    return ResponseEntity.ok(addon);
   }
 
   @PostMapping()
-  public Addon saveCiclista(@RequestBody Addon addon){
-    return service.save(addon);
+  public ResponseEntity<Addon> save(@RequestBody Addon addon){
+    service.save(addon);
+    return ResponseEntity.status(HttpStatus.CREATED).body(addon);
   }
 
 }

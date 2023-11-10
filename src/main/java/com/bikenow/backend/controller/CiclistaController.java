@@ -3,6 +3,8 @@ package com.bikenow.backend.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,33 +26,40 @@ public class CiclistaController {
   private CiclistaService service;
 
   @GetMapping
-  public List<Ciclista> findAll(){
-    return service.findAll();
+  public ResponseEntity<List<Ciclista>> findAll(){
+    var ciclistas = service.findAll();
+    return ResponseEntity.ok(ciclistas);
   }
 
   @GetMapping("/cpf/{cpf}")
-  public Ciclista findByCpf(@PathVariable String cpf){
-    return service.findByCpf(cpf);
+  public ResponseEntity<Ciclista> findByCpf(@PathVariable String cpf){
+    var ciclista = service.findByCpf(cpf);
+    return ResponseEntity.ok(ciclista);
   }
 
   @GetMapping("/id/{id}")
-  public Ciclista findById(@PathVariable Long id){
-    return service.findById(id);
+  public ResponseEntity<Ciclista> findById(@PathVariable Long id){
+    var ciclista = service.findById(id);
+    return ResponseEntity.ok(ciclista);
   }
 
   @GetMapping("/nome/{nome}")
-  public Ciclista findByNome(@PathVariable String nome){
-    return service.findByNome(nome);
+  public ResponseEntity<Ciclista> findByNome(@PathVariable String nome){
+    var ciclista = service.findByNome(nome);
+    return ResponseEntity.ok(ciclista);
   }
 
   @PostMapping()
-  public Ciclista saveCiclista(@RequestBody Ciclista ciclista){
-    return service.save(ciclista);
+  public ResponseEntity<Ciclista> save(@RequestBody Ciclista ciclista){
+    service.save(ciclista);
+    return ResponseEntity.status(HttpStatus.CREATED).body(ciclista);
   }
+  
 
   @PutMapping("/{id}")
-    public Ciclista updateCiclista(@PathVariable Long id, @RequestBody Ciclista ciclista){
-      return service.update(id, ciclista);
+    public ResponseEntity<Ciclista> updateCiclista(@PathVariable Long id, @RequestBody Ciclista ciclista){
+      var bicicletaUpdated = service.update(id, ciclista);
+      return ResponseEntity.ok(bicicletaUpdated);
     }
 
 }

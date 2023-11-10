@@ -3,6 +3,8 @@ package com.bikenow.backend.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,23 +25,27 @@ public class AnalistaController {
   private AnalistaService service;
 
   @GetMapping()
-  public List<Analista> findAll(){
-    return service.findAll();
+  public ResponseEntity<List<Analista>> findAll(){
+    List<Analista> analistas = service.findAll();
+    return ResponseEntity.ok(analistas);
   }
 
   @GetMapping("/rm/{rm}")
-  public Analista findByRm(@PathVariable String rm){
-    return service.findByRm(rm);
+  public ResponseEntity<Analista> findByRm(@PathVariable String rm){
+    Analista analista = service.findByRm(rm);
+    return ResponseEntity.ok(analista);
   }
   
   @GetMapping("/{id}")
-  public Analista findById(@PathVariable Long id){
-    return service.findById(id);
+  public ResponseEntity<Analista> findById(@PathVariable Long id){
+    Analista analista = service.findById(id);
+    return ResponseEntity.ok(analista);
   }
 
   @PostMapping()
-  public Analista saveCiclista(@RequestBody Analista analista){
-    return service.save(analista);
+  public ResponseEntity<Analista> save(@RequestBody Analista analista){
+    service.save(analista);
+    return ResponseEntity.status(HttpStatus.CREATED).body(analista);
   }
 }
 

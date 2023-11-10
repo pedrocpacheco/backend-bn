@@ -3,10 +3,12 @@ package com.bikenow.backend.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.bikenow.backend.entities.Ciclista;
 import com.bikenow.backend.repositories.CiclistaRepository;
 
+@Service
 public class CiclistaService {
   
   @Autowired
@@ -25,11 +27,7 @@ public class CiclistaService {
   }
 
   public Ciclista findById(Long id){
-    if(repository.findById(id).get() == null){
-      throw new IllegalArgumentException("Ciclista with id: " + id + " does not exist");
-    }
-
-    return repository.findById(id).get();
+    return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Ciclista with id: " + id + " does not exist"));
   }
 
   public Ciclista findByNome(String nome){
@@ -45,10 +43,6 @@ public class CiclistaService {
       throw new RuntimeException("Ciclista parameter is null!");
     }
 
-    if(repository.findById(ciclista.getId()).get() != null){
-      throw new IllegalArgumentException("Ciclista with id: " + ciclista.getId() + " already exists");
-    }
-
     if(repository.findByCpf(ciclista.getCpf()) != null){
       throw new IllegalArgumentException("Ciclista with cpf: " + ciclista.getCpf() + " already exists");
     }
@@ -59,10 +53,6 @@ public class CiclistaService {
   public Ciclista update(Long id, Ciclista ciclista){
     if(ciclista == null){
       throw new IllegalArgumentException("Ciclista parameter is null!");
-    }
-
-    if(repository.findById(id).get() == null){
-      throw new IllegalArgumentException("Ciclista does not exist!");
     }
 
     return repository.save(ciclista);

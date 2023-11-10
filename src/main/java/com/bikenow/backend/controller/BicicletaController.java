@@ -3,6 +3,8 @@ package com.bikenow.backend.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,38 +26,45 @@ public class BicicletaController {
   private BicicletaService service;  
 
   @GetMapping
-  public List<Bicicleta> findAll(){
-    return service.findAll();
+  public ResponseEntity<List<Bicicleta>> findAll(){
+    var bicicletas = service.findAll();
+    return ResponseEntity.ok(bicicletas);
   }
 
   @GetMapping("/{id}")
-  public Bicicleta findById(@PathVariable Long id){
-    return service.findById(id);
+  public ResponseEntity<Bicicleta> findById(@PathVariable Long id){
+    var bicicleta = service.findById(id);
+    return ResponseEntity.ok(bicicleta);
   }
 
   @GetMapping("/ciclista/{ciclistaId}")
-  public List<Bicicleta> findByCiclistaId(@PathVariable Long ciclistaId){
-    return service.findByCiclistaId(ciclistaId);
+  public ResponseEntity<List<Bicicleta>> findByCiclistaId(@PathVariable Long ciclistaId){
+    var bicicletas = service.findByCiclistaId(ciclistaId);
+    return ResponseEntity.ok(bicicletas);
   }
 
   @PostMapping()
-  public Bicicleta saveCiclista(@RequestBody Bicicleta bicicleta){
-    return service.save(bicicleta);
+  public ResponseEntity<Bicicleta> save(@RequestBody Bicicleta bicicleta){
+    service.save(bicicleta);
+    return ResponseEntity.status(HttpStatus.CREATED).body(bicicleta);
   }
 
   @PutMapping("/aceito/{id}")
-  public Bicicleta aceitoBicicleta(@PathVariable Long id, @RequestBody Bicicleta bicicleta){
-    return service.updateAceito(id, bicicleta);
+  public ResponseEntity<Bicicleta> aceitoBicicleta(@PathVariable Long id, @RequestBody Bicicleta bicicleta){
+    var bicicletaUpdated = service.updateAceito(id, bicicleta);
+    return ResponseEntity.ok(bicicletaUpdated);
   }
 
   @PutMapping("/avaliado/{id}")
-  public Bicicleta avaliadoBicicleta(@PathVariable Long id, @RequestBody Bicicleta bicicleta){
-    return service.updateAvalidado(id, bicicleta);
+  public ResponseEntity<Bicicleta> avaliadoBicicleta(@PathVariable Long id, @RequestBody Bicicleta bicicleta){
+    var bicicletaUpdated = service.updateAvalidado(id, bicicleta);
+    return ResponseEntity.ok(bicicletaUpdated);
   }
 
   @PutMapping("/{id}")
-  public Bicicleta updateBicicleta(@PathVariable Long id, @RequestBody Bicicleta bicicleta) {
-      return service.update(id, bicicleta);
+  public ResponseEntity<Bicicleta> update(@PathVariable Long id, @RequestBody Bicicleta bicicleta) {
+    var bicicletaUpdated = service.update(id, bicicleta);  
+    return ResponseEntity.ok(bicicletaUpdated);
   }
 
 
